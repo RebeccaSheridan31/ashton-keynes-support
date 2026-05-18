@@ -147,6 +147,34 @@
     margin-bottom: 1rem;
   }
 
+  .key-points {
+    background: #f7fbf6;
+    border: 1px solid #c8e0c4;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.83rem;
+    color: #2a4a28;
+    line-height: 1.6;
+  }
+  .key-points .kp-intro {
+    font-weight: 600;
+    color: #1a3d17;
+    margin-bottom: 0.75rem;
+    font-size: 0.85rem;
+  }
+  .key-points .kp-section {
+    margin-bottom: 0.75rem;
+  }
+  .key-points .kp-section:last-child {
+    margin-bottom: 0;
+  }
+  .key-points .kp-heading {
+    font-weight: 600;
+    color: #2d5a27;
+    margin-bottom: 0.2rem;
+  }
+
   .privacy-box {
     background: #f7f7f5;
     border: 1px solid #ddddd8;
@@ -225,9 +253,30 @@
   <div class="card" id="step2">
     <div class="section-label"><span class="step-num">2</span> Write your letter</div>
     <div class="hint-box">
-      Write a few sentences in your own words about why you support this project. It doesn't need to be long — even two or three sentences makes a difference.
+      Write your letter in your own words in the box below. It doesn't need to be long — even two or three sentences makes a difference.
     </div>
-    <textarea id="letter-input" placeholder="e.g. I am writing to express my support for the Ashton Keynes Green Energy anaerobic digester project. I believe it will bring real benefits to local farmers and help our community transition to cleaner energy…"></textarea>
+
+    <div class="key-points">
+      <div class="kp-intro">Here are some key points you could consider including:</div>
+      <div class="kp-section">
+        <div class="kp-heading">Location</div>
+        This plant is in the best location for local farmers. The majority of feedstock taken by Ashton Keynes Green Energy will come from a 15km radius. Farmers who put the food on your plates are going to be the ones who benefit.
+      </div>
+      <div class="kp-section">
+        <div class="kp-heading">Farming Benefits</div>
+        The plans support local farmers and the rural economy at a time when things have never been harder. Ashton Keynes Green Energy will use organic materials from farmers to feed the plant and provide natural fertiliser in return to give farms the stability they need.
+      </div>
+      <div class="kp-section">
+        <div class="kp-heading">Homegrown Energy</div>
+        The plans will produce green energy and support energy security. Biomethane produced will help our transition to net zero. This reduces our dependence on foreign gas supplies. The plant will also sequester CO2 which will address national shortages.
+      </div>
+      <div class="kp-section">
+        <div class="kp-heading">Traffic</div>
+        Ashton Keynes Green Energy will have no unacceptable impact on local traffic. Nearly 50% of traffic going to the site will be redistributed farming traffic. This means that there will only be a 1% maximum increase on existing traffic.
+      </div>
+    </div>
+
+    <textarea id="letter-input" placeholder="Write your letter here in your own words…"></textarea>
     <button class="btn btn-send" onclick="sendLetter()">📧 Send to the planning committee</button>
     <div class="privacy-box">
       <strong>Data protection:</strong> This information is being collected by Quatro PR on behalf of Acorn Bioenergy. Your email will be sent to all members of Wiltshire Council Strategic Planning Committee and to Quatro PR.
