@@ -71,38 +71,11 @@
     margin-bottom: 0.75rem;
   }
 
-  #letter-box {
-    font-size: 0.92rem;
-    line-height: 1.7;
-    color: #1a2e1a;
-    white-space: pre-wrap;
-    min-height: 120px;
-  }
-
-  .loading {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    color: #5a8a54;
+  .step-intro {
     font-size: 0.9rem;
-  }
-  .spinner {
-    width: 20px; height: 20px;
-    border: 2.5px solid #d4e6d0;
-    border-top-color: #2d5a27;
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-    flex-shrink: 0;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  .error-msg {
-    color: #b94040;
-    font-size: 0.88rem;
-    background: #fdf0f0;
-    border: 1px solid #f5c6c6;
-    border-radius: 10px;
-    padding: 0.75rem 1rem;
+    color: #3a5e38;
+    line-height: 1.55;
+    margin-bottom: 1rem;
   }
 
   .name-row {
@@ -138,24 +111,76 @@
     text-align: center;
     transition: opacity 0.15s, transform 0.1s;
     text-decoration: none;
+    line-height: 1.3;
   }
   .btn:active { transform: scale(0.98); }
-  .btn-primary {
+  .btn-primary { background: #2d5a27; color: white; }
+  .btn-primary:hover { opacity: 0.9; }
+  .btn-claude {
     background: #2d5a27;
     color: white;
+    margin-bottom: 0.75rem;
   }
-  .btn-primary:hover { opacity: 0.9; }
-  .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; }
+  .btn-claude:hover { opacity: 0.9; }
   .btn-send {
     background: #e8f4e6;
     color: #1a3d17;
     border: 1.5px solid #a8d5a2;
-    margin-top: 0.75rem;
     font-size: 1.05rem;
   }
   .btn-send:hover { background: #d0eacc; }
 
-  .send-icon { font-size: 1.2rem; margin-right: 6px; vertical-align: -2px; }
+  .letter-paste-label {
+    font-size: 0.85rem;
+    color: #5a8a54;
+    margin-bottom: 0.5rem;
+  }
+
+  textarea#letter-input {
+    width: 100%;
+    min-height: 200px;
+    padding: 12px 14px;
+    border: 1.5px solid #d4e6d0;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 0.88rem;
+    color: #1a2e1a;
+    background: #f7fbf6;
+    outline: none;
+    resize: vertical;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    transition: border-color 0.15s;
+  }
+  textarea#letter-input:focus { border-color: #2d5a27; background: white; }
+  textarea#letter-input::placeholder { color: #aac4a6; }
+
+  .hint-box {
+    background: #f0f7ee;
+    border: 1px solid #c8e0c4;
+    border-radius: 10px;
+    padding: 0.85rem 1rem;
+    font-size: 0.83rem;
+    color: #3a5e38;
+    line-height: 1.55;
+    margin-bottom: 1rem;
+  }
+  .hint-box strong { font-weight: 600; }
+
+  .step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px; height: 22px;
+    background: #2d5a27;
+    color: white;
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-right: 6px;
+    flex-shrink: 0;
+    vertical-align: middle;
+  }
 
   .info-list {
     list-style: none;
@@ -182,21 +207,7 @@
     line-height: 1.6;
   }
 
-  .regen-btn {
-    background: none;
-    border: 1px solid #d4e6d0;
-    border-radius: 8px;
-    padding: 5px 12px;
-    font-size: 0.8rem;
-    color: #5a8a54;
-    cursor: pointer;
-    font-family: inherit;
-    float: right;
-    margin-top: -2px;
-  }
-  .regen-btn:hover { background: #f0f7ee; }
-
-  #send-section { display: none; }
+  #step2, #step3 { display: none; }
 </style>
 </head>
 <body>
@@ -205,31 +216,34 @@
   <div class="leaf">🌿</div>
   <div class="badge">Planning application PL/2023/03359</div>
   <h1>Support Ashton Keynes Green Energy</h1>
-  <p>Write to the planning committee in seconds and help make this happen for local farmers and our community.</p>
+  <p>Write to the planning committee in just a few steps and help make this happen for local farmers and our community.</p>
 </header>
 
 <main>
 
-  <div class="card">
-    <div class="section-label">Step 1 — Your name</div>
+  <div class="card" id="step1">
+    <div class="section-label"><span class="step-num">1</span> Your name</div>
     <div class="name-row">
       <input type="text" id="first-name" placeholder="First name" autocomplete="given-name">
       <input type="text" id="last-name" placeholder="Last name" autocomplete="family-name">
     </div>
-    <button class="btn btn-primary" id="generate-btn" onclick="generateLetter()">Generate my letter of support →</button>
+    <button class="btn btn-primary" onclick="goToStep2()">Next →</button>
   </div>
 
-  <div id="letter-section" class="card" style="display:none;">
-    <div class="section-label">
-      Step 2 — Your letter
-      <button class="regen-btn" onclick="generateLetter()">↻ Regenerate</button>
+  <div class="card" id="step2">
+    <div class="section-label"><span class="step-num">2</span> Generate your letter</div>
+    <div class="hint-box">
+      Tap the button below to open Claude AI — it will write a unique, personal letter for you. Once it's finished, <strong>select all the text, copy it</strong>, then come back to this page.
     </div>
-    <div id="letter-box"></div>
-    <div id="send-section">
-      <a id="send-link" href="#" class="btn btn-send" onclick="return openMailto()">
-        <span class="send-icon">📧</span> Send this letter to the committee
-      </a>
-    </div>
+    <button class="btn btn-claude" id="claude-btn" onclick="openClaude()">✦ Open Claude to write my letter</button>
+    <button class="btn btn-send" onclick="goToStep3()">I've copied my letter — next →</button>
+  </div>
+
+  <div class="card" id="step3">
+    <div class="section-label"><span class="step-num">3</span> Paste and send</div>
+    <p class="letter-paste-label">Paste your letter here:</p>
+    <textarea id="letter-input" placeholder="Paste the letter from Claude here…"></textarea>
+    <button class="btn btn-send" onclick="sendLetter()">📧 Send to the planning committee</button>
   </div>
 
   <div class="card">
@@ -237,7 +251,7 @@
     <ul class="info-list">
       <li><span class="dot"></span><span>Supports local farmers within a 15km radius with feedstock contracts and natural fertiliser</span></li>
       <li><span class="dot"></span><span>Produces green biomethane to cut dependence on foreign gas and help reach net zero</span></li>
-      <li><span class="dot"></span><span>Causes only a 1% maximum increase in local traffic — nearly half of deliveries are redistributed farm trips</span></li>
+      <li><span class="dot"></span><span>Only a 1% maximum increase in local traffic — nearly half of deliveries are redistributed farm trips</span></li>
       <li><span class="dot"></span><span>Sequesters CO₂, addressing national shortages</span></li>
     </ul>
   </div>
@@ -252,90 +266,60 @@
 </main>
 
 <script>
-const BCC = "ernie.clark@wiltshire.gov.uk; howard.greenman@wiltshire.gov.uk; nick.baker@wiltshire.gov.uk; sam.blackwell@wiltshire.gov.uk; chris.brautigam@wiltshire.gov.uk; kymee.cleasby@wiltshire.gov.uk; nick.holder@wiltshire.gov.uk; dominic.munns@wiltshire.gov.uk; christopher.newbury@wiltshire.gov.uk; stewart.palmen@wiltshire.gov.uk; nigel.white@wiltshire.gov.uk; rsheridan@quatro-pr.co.uk; rparry@quatro-pr.co.uk";
+const BCC = "ernie.clark@wiltshire.gov.uk;howard.greenman@wiltshire.gov.uk;nick.baker@wiltshire.gov.uk;sam.blackwell@wiltshire.gov.uk;chris.brautigam@wiltshire.gov.uk;kymee.cleasby@wiltshire.gov.uk;nick.holder@wiltshire.gov.uk;dominic.munns@wiltshire.gov.uk;christopher.newbury@wiltshire.gov.uk;stewart.palmen@wiltshire.gov.uk;nigel.white@wiltshire.gov.uk;rsheridan@quatro-pr.co.uk;rparry@quatro-pr.co.uk";
 const SUBJECT = "PL/2023/03359";
 
-let currentLetter = '';
+let userName = '';
 
-async function generateLetter() {
+function goToStep2() {
   const first = document.getElementById('first-name').value.trim();
   const last = document.getElementById('last-name').value.trim();
-  const name = [first, last].filter(Boolean).join(' ') || 'a local resident';
-
-  const btn = document.getElementById('generate-btn');
-  btn.disabled = true;
-  btn.textContent = 'Writing your letter…';
-
-  const section = document.getElementById('letter-section');
-  const box = document.getElementById('letter-box');
-  const sendSection = document.getElementById('send-section');
-
-  section.style.display = 'block';
-  sendSection.style.display = 'none';
-  box.innerHTML = '<div class="loading"><div class="spinner"></div><span>Crafting a unique letter for you…</span></div>';
-
-  const seed = Math.floor(Math.random() * 1000);
-  const styles = [
-    "Write in a warm, personal, community-minded tone",
-    "Write in a straightforward, practical tone as someone who values local economy",
-    "Write in a passionate, forward-thinking tone focused on climate and energy",
-    "Write in a measured, fact-focused tone from a concerned local resident",
-    "Write in a heartfelt tone that emphasises support for local farming families"
-  ];
-  const styleInstruction = styles[seed % styles.length];
-
-  const prompt = `You are helping ${name} write a letter of support to a planning committee for an anaerobic digester project called Ashton Keynes Green Energy (planning reference PL/2023/03359) in Ashton Keynes, Wiltshire, UK.
-
-${styleInstruction}. The letter must feel genuinely personal and individually written — not like a template. Vary the structure, opening, and phrasing. Do NOT use bullet points or headings. Write flowing paragraphs.
-
-You must naturally weave in ALL of the following key facts, but in your own way:
-- The plant is in the best location: most feedstock comes from within 15km, benefiting local farmers who produce our food
-- It supports local farmers and the rural economy during very difficult times; organic farm materials feed the plant and natural fertiliser goes back to farms
-- It will produce green biomethane to help net zero transition, reduce dependence on foreign gas, and sequester CO2 addressing national shortages
-- It will have no unacceptable traffic impact: nearly 50% of traffic is redistributed farm traffic, meaning only a 1% maximum increase on existing traffic
-
-The letter should be addressed to the planning committee. Sign off as: ${name}
-
-Write only the letter itself. No preamble. No "Here is a letter:" introduction. Seed for variation: ${seed}.`;
-
-  try {
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
-        max_tokens: 1000,
-        messages: [{ role: "user", content: prompt }]
-      })
-    });
-
-    const data = await response.json();
-
-    if (!response.ok || !data.content) {
-      throw new Error(data.error?.message || 'API error');
-    }
-
-    const text = data.content.map(b => b.text || '').join('').trim();
-    currentLetter = text;
-    box.textContent = text;
-    sendSection.style.display = 'block';
-
-  } catch (err) {
-    box.innerHTML = `<div class="error-msg">Sorry, we couldn't generate a letter right now. Please try again, or ask a volunteer for help.<br><small>${err.message}</small></div>`;
-  }
-
-  btn.disabled = false;
-  btn.textContent = 'Generate my letter of support →';
+  userName = [first, last].filter(Boolean).join(' ') || 'a local resident';
+  document.getElementById('step1').style.display = 'none';
+  document.getElementById('step2').style.display = 'block';
 }
 
-function openMailto() {
-  if (!currentLetter) return false;
-  const body = encodeURIComponent(currentLetter);
-  const bcc = encodeURIComponent(BCC);
-  const subj = encodeURIComponent(SUBJECT);
-  const mailto = `mailto:?bcc=${bcc}&subject=${subj}&body=${body}`;
+function openClaude() {
+  const tones = [
+    "Write in a warm, personal, community-minded tone.",
+    "Write in a straightforward, practical tone as someone who values the local economy.",
+    "Write in a passionate, forward-thinking tone focused on climate and energy.",
+    "Write in a measured, fact-focused tone from a concerned local resident.",
+    "Write in a heartfelt tone that emphasises support for local farming families."
+  ];
+  const tone = tones[Math.floor(Math.random() * tones.length)];
+
+  const prompt = `Please write me a letter of support to a planning committee for an anaerobic digester project called Ashton Keynes Green Energy (planning reference PL/2023/03359) in Ashton Keynes, Wiltshire.
+
+${tone} The letter must feel genuinely personal and individually written — not like a template. Do NOT use bullet points or headings. Write flowing paragraphs only.
+
+Naturally weave in ALL of these key facts:
+- The plant is optimally located: most feedstock comes from within 15km, directly benefiting the local farmers who produce our food
+- It supports local farmers and the rural economy during very difficult times; organic farm materials feed the plant and natural fertiliser is returned to farms
+- It will produce green biomethane to help the net zero transition, reduce dependence on foreign gas, and sequester CO2 to address national shortages
+- It will have no unacceptable traffic impact: nearly 50% of traffic is redistributed existing farm traffic, meaning only a 1% maximum increase on current levels
+
+Address the letter to the planning committee and sign off as: ${userName}
+
+Write only the letter itself — no preamble, no "Here is your letter:" introduction.`;
+
+  const url = 'https://claude.ai/new?q=' + encodeURIComponent(prompt);
+  window.open(url, '_blank');
+}
+
+function goToStep3() {
+  document.getElementById('step2').style.display = 'none';
+  document.getElementById('step3').style.display = 'block';
+}
+
+function sendLetter() {
+  const letter = document.getElementById('letter-input').value.trim();
+  if (!letter) {
+    alert('Please paste your letter first.');
+    return;
+  }
+  const mailto = `mailto:?bcc=${encodeURIComponent(BCC)}&subject=${encodeURIComponent(SUBJECT)}&body=${encodeURIComponent(letter)}`;
   window.location.href = mailto;
-  return false;
 }
 </script>
 </body>
