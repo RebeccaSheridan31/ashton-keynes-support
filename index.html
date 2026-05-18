@@ -74,7 +74,7 @@
   .name-row {
     display: flex;
     gap: 10px;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
   }
   .name-row input {
     flex: 1;
@@ -90,6 +90,31 @@
   }
   .name-row input:focus { border-color: #2d5a27; background: white; }
   .name-row input::placeholder { color: #aac4a6; }
+
+  .field {
+    margin-bottom: 0.75rem;
+  }
+  .field input, .field textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid #d4e6d0;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: #1a2e1a;
+    background: #f7fbf6;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .field input:focus, .field textarea:focus { border-color: #2d5a27; background: white; }
+  .field input::placeholder, .field textarea::placeholder { color: #aac4a6; }
+  .field-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #5a8a54;
+    margin-bottom: 0.3rem;
+    display: block;
+  }
 
   .btn {
     display: block;
@@ -166,9 +191,7 @@
   .key-points .kp-section {
     margin-bottom: 0.75rem;
   }
-  .key-points .kp-section:last-child {
-    margin-bottom: 0;
-  }
+  .key-points .kp-section:last-child { margin-bottom: 0; }
   .key-points .kp-heading {
     font-weight: 600;
     color: #2d5a27;
@@ -182,7 +205,7 @@
     padding: 0.85rem 1rem;
     font-size: 0.78rem;
     color: #5a5a52;
-    line-height: 1.55;
+    line-height: 1.6;
     margin-top: 1rem;
   }
   .privacy-box strong { font-weight: 600; color: #3a3a32; }
@@ -242,10 +265,22 @@
 <main>
 
   <div class="card" id="step1">
-    <div class="section-label"><span class="step-num">1</span> Your name</div>
+    <div class="section-label"><span class="step-num">1</span> Your details</div>
     <div class="name-row">
       <input type="text" id="first-name" placeholder="First name" autocomplete="given-name">
       <input type="text" id="last-name" placeholder="Last name" autocomplete="family-name">
+    </div>
+    <div class="field">
+      <input type="text" id="address1" placeholder="Address line 1" autocomplete="address-line1">
+    </div>
+    <div class="field">
+      <input type="text" id="address2" placeholder="Address line 2 (optional)" autocomplete="address-line2">
+    </div>
+    <div class="field">
+      <input type="text" id="town" placeholder="Town / City" autocomplete="address-level2">
+    </div>
+    <div class="field" style="margin-bottom: 1rem;">
+      <input type="text" id="postcode" placeholder="Postcode" autocomplete="postal-code">
     </div>
     <button class="btn btn-primary" onclick="goToStep2()">Next →</button>
   </div>
@@ -270,16 +305,12 @@
         <div class="kp-heading">Homegrown Energy</div>
         The plans will produce green energy and support energy security. Biomethane produced will help our transition to net zero. This reduces our dependence on foreign gas supplies. The plant will also sequester CO2 which will address national shortages.
       </div>
-      <div class="kp-section">
-        <div class="kp-heading">Traffic</div>
-        Ashton Keynes Green Energy will have no unacceptable impact on local traffic. Nearly 50% of traffic going to the site will be redistributed farming traffic. This means that there will only be a 1% maximum increase on existing traffic.
-      </div>
     </div>
 
     <textarea id="letter-input" placeholder="Write your letter here in your own words…"></textarea>
-    <button class="btn btn-send" onclick="sendLetter()">📧 Send to Quatro PR</button>
+    <button class="btn btn-send" onclick="sendLetter()">📧 Send to the planning committee</button>
     <div class="privacy-box">
-      <strong>Data protection:</strong> This information is being collected by Quatro PR on behalf of Acorn Bioenergy. Your email will be sent to all members of Wiltshire Council Strategic Planning Committee and to Quatro PR.
+      <strong>Data protection notice:</strong> This form is operated by Quatro PR on behalf of Acorn Bioenergy. The personal information you provide — including your name and address — will be included in the body of the email you send, so that your letter can be properly considered by the planning committee as a representation from a named individual at a known address. Your email will be sent directly to all members of Wiltshire Council Strategic Planning Committee and to Quatro PR. Your data will not be used for any other purpose, shared with any third party beyond those listed, or retained by Quatro PR beyond the conclusion of this planning process. By tapping Send, you confirm you are happy for your details to be included in your letter and shared as described above.
     </div>
   </div>
 
@@ -296,22 +327,38 @@
   <div class="card">
     <div class="section-label">Recipients</div>
     <p class="recipients">
-      Quatro PR — rsheridan@quatro-pr.co.uk, rparry@quatro-pr.co.uk
+      Ernie Clark, Howard Greenman, Nick Baker, Sam Blackwell, Chris Brautigam, Kymee Cleasby, Nick Holder, Dominic Munns, Christopher Newbury, Stewart Palmen, Nigel White — Wiltshire Council Strategic Planning Committee, and Quatro PR
     </p>
   </div>
 
 </main>
 
 <script>
-const BCC = "rsheridan@quatro-pr.co.uk;rparry@quatro-pr.co.uk";
+const BCC = "ernie.clark@wiltshire.gov.uk;howard.greenman@wiltshire.gov.uk;nick.baker@wiltshire.gov.uk;sam.blackwell@wiltshire.gov.uk;chris.brautigam@wiltshire.gov.uk;kymee.cleasby@wiltshire.gov.uk;nick.holder@wiltshire.gov.uk;dominic.munns@wiltshire.gov.uk;christopher.newbury@wiltshire.gov.uk;stewart.palmen@wiltshire.gov.uk;nigel.white@wiltshire.gov.uk;rsheridan@quatro-pr.co.uk;rparry@quatro-pr.co.uk";
 const SUBJECT = "PL/2023/03359";
 
-let userName = '';
+let userDetails = {};
 
 function goToStep2() {
   const first = document.getElementById('first-name').value.trim();
   const last = document.getElementById('last-name').value.trim();
-  userName = [first, last].filter(Boolean).join(' ') || 'a local resident';
+  const address1 = document.getElementById('address1').value.trim();
+  const address2 = document.getElementById('address2').value.trim();
+  const town = document.getElementById('town').value.trim();
+  const postcode = document.getElementById('postcode').value.trim();
+
+  if (!first || !last) {
+    alert('Please enter your first and last name.');
+    return;
+  }
+  if (!address1 || !town || !postcode) {
+    alert('Please enter your address, town and postcode.');
+    return;
+  }
+
+  userDetails.name = [first, last].join(' ');
+  userDetails.address = [address1, address2, town, postcode].filter(Boolean).join(', ');
+
   document.getElementById('step1').style.display = 'none';
   document.getElementById('step2').style.display = 'block';
   window.scrollTo(0, 0);
@@ -323,7 +370,7 @@ function sendLetter() {
     alert('Please write your letter first.');
     return;
   }
-  const fullLetter = letter + '\n\n' + userName;
+  const fullLetter = userDetails.address + '\n\n' + letter + '\n\n' + userDetails.name;
   const mailto = `mailto:?bcc=${encodeURIComponent(BCC)}&subject=${encodeURIComponent(SUBJECT)}&body=${encodeURIComponent(fullLetter)}`;
   window.location.href = mailto;
 }
