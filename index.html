@@ -23,7 +23,16 @@
     padding: 2rem 1.5rem 1.5rem;
     text-align: center;
   }
-  header .leaf { font-size: 2.5rem; margin-bottom: 0.5rem; }
+  header img.logo {
+    width: 130px;
+    margin-bottom: 1rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background: white;
+    border-radius: 12px;
+    padding: 10px 14px;
+  }
   header h1 {
     font-family: 'Playfair Display', serif;
     font-size: 1.6rem;
@@ -91,10 +100,8 @@
   .name-row input:focus { border-color: #2d5a27; background: white; }
   .name-row input::placeholder { color: #aac4a6; }
 
-  .field {
-    margin-bottom: 0.75rem;
-  }
-  .field input, .field textarea {
+  .field { margin-bottom: 0.75rem; }
+  .field input {
     width: 100%;
     padding: 10px 14px;
     border: 1.5px solid #d4e6d0;
@@ -106,15 +113,8 @@
     outline: none;
     transition: border-color 0.15s;
   }
-  .field input:focus, .field textarea:focus { border-color: #2d5a27; background: white; }
-  .field input::placeholder, .field textarea::placeholder { color: #aac4a6; }
-  .field-label {
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: #5a8a54;
-    margin-bottom: 0.3rem;
-    display: block;
-  }
+  .field input:focus { border-color: #2d5a27; background: white; }
+  .field input::placeholder { color: #aac4a6; }
 
   .btn {
     display: block;
@@ -188,9 +188,7 @@
     margin-bottom: 0.75rem;
     font-size: 0.85rem;
   }
-  .key-points .kp-section {
-    margin-bottom: 0.75rem;
-  }
+  .key-points .kp-section { margin-bottom: 0.75rem; }
   .key-points .kp-section:last-child { margin-bottom: 0; }
   .key-points .kp-heading {
     font-weight: 600;
@@ -225,155 +223,8 @@
     vertical-align: middle;
   }
 
-  .info-list {
-    list-style: none;
-    padding: 0;
-  }
+  .info-list { list-style: none; padding: 0; }
   .info-list li {
     display: flex;
     gap: 10px;
-    align-items: flex-start;
-    padding: 0.5rem 0;
-    font-size: 0.88rem;
-    color: #3a5e38;
-    border-bottom: 1px solid #eaf4e8;
-  }
-  .info-list li:last-child { border-bottom: none; }
-  .info-list .dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: #5a8a54; flex-shrink: 0; margin-top: 5px;
-  }
-
-  .recipients {
-    font-size: 0.8rem;
-    color: #6a8a68;
-    line-height: 1.6;
-  }
-
-  #step2 { display: none; }
-</style>
-</head>
-<body>
-
-<header>
-  <div class="leaf">🌿</div>
-  <div class="badge">Planning application PL/2023/03359</div>
-  <h1>Support Ashton Keynes Green Energy</h1>
-  <p>Write to the planning committee in just a couple of steps and help make this happen for local farmers and our community.</p>
-</header>
-
-<main>
-
-  <div class="card" id="step1">
-    <div class="section-label"><span class="step-num">1</span> Your details</div>
-    <div class="name-row">
-      <input type="text" id="first-name" placeholder="First name" autocomplete="given-name">
-      <input type="text" id="last-name" placeholder="Last name" autocomplete="family-name">
-    </div>
-    <div class="field">
-      <input type="text" id="address1" placeholder="Address line 1" autocomplete="address-line1">
-    </div>
-    <div class="field">
-      <input type="text" id="address2" placeholder="Address line 2 (optional)" autocomplete="address-line2">
-    </div>
-    <div class="field">
-      <input type="text" id="town" placeholder="Town / City" autocomplete="address-level2">
-    </div>
-    <div class="field" style="margin-bottom: 1rem;">
-      <input type="text" id="postcode" placeholder="Postcode" autocomplete="postal-code">
-    </div>
-    <button class="btn btn-primary" onclick="goToStep2()">Next →</button>
-  </div>
-
-  <div class="card" id="step2">
-    <div class="section-label"><span class="step-num">2</span> Write your letter</div>
-    <div class="hint-box">
-      Write your letter in your own words in the box below. It doesn't need to be long — even two or three sentences makes a difference.
-    </div>
-
-    <div class="key-points">
-      <div class="kp-intro">Here are some key points you could consider including:</div>
-      <div class="kp-section">
-        <div class="kp-heading">Location</div>
-        This plant is in the best location for local farmers. The majority of feedstock taken by Ashton Keynes Green Energy will come from a 15km radius. Farmers who put the food on your plates are going to be the ones who benefit.
-      </div>
-      <div class="kp-section">
-        <div class="kp-heading">Farming Benefits</div>
-        The plans support local farmers and the rural economy at a time when things have never been harder. Ashton Keynes Green Energy will use organic materials from farmers to feed the plant and provide natural fertiliser in return to give farms the stability they need.
-      </div>
-      <div class="kp-section">
-        <div class="kp-heading">Homegrown Energy</div>
-        The plans will produce green energy and support energy security. Biomethane produced will help our transition to net zero. This reduces our dependence on foreign gas supplies. The plant will also sequester CO2 which will address national shortages.
-      </div>
-    </div>
-
-    <textarea id="letter-input" placeholder="Write your letter here in your own words…"></textarea>
-    <button class="btn btn-send" onclick="sendLetter()">📧 Send to the planning committee</button>
-    <div class="privacy-box">
-      <strong>Data protection notice:</strong> This form is operated by Quatro PR on behalf of Acorn Bioenergy. The personal information you provide — including your name and address — will be included in the body of the email you send, so that your letter can be properly considered by the planning committee as a representation from a named individual at a known address. Your email will be sent directly to all members of Wiltshire Council Strategic Planning Committee and to Quatro PR. Your data will not be used for any other purpose, shared with any third party beyond those listed, or retained by Quatro PR beyond the conclusion of this planning process. By tapping Send, you confirm you are happy for your details to be included in your letter and shared as described above.
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="section-label">Why this matters</div>
-    <ul class="info-list">
-      <li><span class="dot"></span><span>Supports local farmers within a 15km radius with feedstock contracts and natural fertiliser</span></li>
-      <li><span class="dot"></span><span>Produces green biomethane to cut dependence on foreign gas and help reach net zero</span></li>
-      <li><span class="dot"></span><span>Only a 1% maximum increase in local traffic — nearly half of deliveries are redistributed farm trips</span></li>
-      <li><span class="dot"></span><span>Sequesters CO₂, addressing national shortages</span></li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <div class="section-label">Recipients</div>
-    <p class="recipients">
-      Ernie Clark, Howard Greenman, Nick Baker, Sam Blackwell, Chris Brautigam, Kymee Cleasby, Nick Holder, Dominic Munns, Christopher Newbury, Stewart Palmen, Nigel White — Wiltshire Council Strategic Planning Committee, and Quatro PR
-    </p>
-  </div>
-
-</main>
-
-<script>
-const BCC = "ernie.clark@wiltshire.gov.uk;howard.greenman@wiltshire.gov.uk;nick.baker@wiltshire.gov.uk;sam.blackwell@wiltshire.gov.uk;chris.brautigam@wiltshire.gov.uk;kymee.cleasby@wiltshire.gov.uk;nick.holder@wiltshire.gov.uk;dominic.munns@wiltshire.gov.uk;christopher.newbury@wiltshire.gov.uk;stewart.palmen@wiltshire.gov.uk;nigel.white@wiltshire.gov.uk;rsheridan@quatro-pr.co.uk;rparry@quatro-pr.co.uk";
-const SUBJECT = "PL/2023/03359";
-
-let userDetails = {};
-
-function goToStep2() {
-  const first = document.getElementById('first-name').value.trim();
-  const last = document.getElementById('last-name').value.trim();
-  const address1 = document.getElementById('address1').value.trim();
-  const address2 = document.getElementById('address2').value.trim();
-  const town = document.getElementById('town').value.trim();
-  const postcode = document.getElementById('postcode').value.trim();
-
-  if (!first || !last) {
-    alert('Please enter your first and last name.');
-    return;
-  }
-  if (!address1 || !town || !postcode) {
-    alert('Please enter your address, town and postcode.');
-    return;
-  }
-
-  userDetails.name = [first, last].join(' ');
-  userDetails.address = [address1, address2, town, postcode].filter(Boolean).join(', ');
-
-  document.getElementById('step1').style.display = 'none';
-  document.getElementById('step2').style.display = 'block';
-  window.scrollTo(0, 0);
-}
-
-function sendLetter() {
-  const letter = document.getElementById('letter-input').value.trim();
-  if (!letter) {
-    alert('Please write your letter first.');
-    return;
-  }
-  const fullLetter = userDetails.address + '\n\n' + letter + '\n\n' + userDetails.name;
-  const mailto = `mailto:?bcc=${encodeURIComponent(BCC)}&subject=${encodeURIComponent(SUBJECT)}&body=${encodeURIComponent(fullLetter)}`;
-  window.location.href = mailto;
-}
-</script>
-</body>
-</html>
+    align-items
