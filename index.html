@@ -227,4 +227,148 @@
   .info-list li {
     display: flex;
     gap: 10px;
-    align-items
+    align-items: flex-start;
+    padding: 0.5rem 0;
+    font-size: 0.88rem;
+    color: #3a5e38;
+    border-bottom: 1px solid #eaf4e8;
+  }
+  .info-list li:last-child { border-bottom: none; }
+  .info-list .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #5a8a54; flex-shrink: 0; margin-top: 5px;
+  }
+
+  .recipients {
+    font-size: 0.8rem;
+    color: #6a8a68;
+    line-height: 1.6;
+  }
+
+  #step2 { display: none; }
+</style>
+</head>
+<body>
+
+<header>
+  <img class="logo" src="data:image/webp;base64,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" alt="Acorn Bioenergy">
+  <div class="badge">Planning application PL/2023/03359</div>
+  <h1>Support Ashton Keynes Green Energy</h1>
+  <p>Write to the planning committee in just a couple of steps and help make this happen for local farmers and our community.</p>
+</header>
+
+<main>
+
+  <div class="card" id="step1">
+    <div class="section-label"><span class="step-num">1</span> Your details</div>
+    <div class="name-row">
+      <input type="text" id="first-name" placeholder="First name" autocomplete="given-name">
+      <input type="text" id="last-name" placeholder="Last name" autocomplete="family-name">
+    </div>
+    <div class="field">
+      <input type="text" id="address1" placeholder="Address line 1" autocomplete="address-line1">
+    </div>
+    <div class="field">
+      <input type="text" id="address2" placeholder="Address line 2 (optional)" autocomplete="address-line2">
+    </div>
+    <div class="field">
+      <input type="text" id="town" placeholder="Town / City" autocomplete="address-level2">
+    </div>
+    <div class="field" style="margin-bottom: 1rem;">
+      <input type="text" id="postcode" placeholder="Postcode" autocomplete="postal-code">
+    </div>
+    <button class="btn btn-primary" onclick="goToStep2()">Next &rarr;</button>
+  </div>
+
+  <div class="card" id="step2">
+    <div class="section-label"><span class="step-num">2</span> Write your letter</div>
+    <div class="hint-box">
+      Write your letter in your own words in the box below. It doesn't need to be long &mdash; even two or three sentences makes a difference.
+    </div>
+
+    <div class="key-points">
+      <div class="kp-intro">Here are some key points you could consider including:</div>
+      <div class="kp-section">
+        <div class="kp-heading">Location</div>
+        This plant is in the best location for local farmers. The majority of feedstock taken by Ashton Keynes Green Energy will come from a 15km radius. Farmers who put the food on your plates are going to be the ones who benefit.
+      </div>
+      <div class="kp-section">
+        <div class="kp-heading">Farming Benefits</div>
+        The plans support local farmers and the rural economy at a time when things have never been harder. Ashton Keynes Green Energy will use organic materials from farmers to feed the plant and provide natural fertiliser in return to give farms the stability they need.
+      </div>
+      <div class="kp-section">
+        <div class="kp-heading">Homegrown Energy</div>
+        The plans will produce green energy and support energy security. Biomethane produced will help our transition to net zero. This reduces our dependence on foreign gas supplies. The plant will also sequester CO2 which will address national shortages.
+      </div>
+    </div>
+
+    <textarea id="letter-input" placeholder="Write your letter here in your own words&hellip;"></textarea>
+    <button class="btn btn-send" onclick="sendLetter()">&#128231; Send to the planning committee</button>
+    <div class="privacy-box">
+      <strong>Data protection notice:</strong> This form is operated by Quatro PR on behalf of Acorn Bioenergy. The personal information you provide &mdash; including your name and address &mdash; will be included in the body of the email you send, so that your letter can be properly considered by the planning committee as a representation from a named individual at a known address. Your email will be sent directly to all members of Wiltshire Council Strategic Planning Committee and to Quatro PR. Your data will not be used for any other purpose, shared with any third party beyond those listed, or retained by Quatro PR beyond the conclusion of this planning process. By tapping Send, you confirm you are happy for your details to be included in your letter and shared as described above.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-label">Why this matters</div>
+    <ul class="info-list">
+      <li><span class="dot"></span><span>Supports local farmers within a 15km radius with feedstock contracts and natural fertiliser</span></li>
+      <li><span class="dot"></span><span>Produces green biomethane to cut dependence on foreign gas and help reach net zero</span></li>
+      <li><span class="dot"></span><span>Only a 1% maximum increase in local traffic &mdash; nearly half of deliveries are redistributed farm trips</span></li>
+      <li><span class="dot"></span><span>Sequesters CO&#8322;, addressing national shortages</span></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="section-label">Recipients</div>
+    <p class="recipients">
+      Ernie Clark, Howard Greenman, Nick Baker, Sam Blackwell, Chris Brautigam, Kymee Cleasby, Nick Holder, Dominic Munns, Christopher Newbury, Stewart Palmen, Nigel White &mdash; Wiltshire Council Strategic Planning Committee, and Quatro PR
+    </p>
+  </div>
+
+</main>
+
+<script>
+const BCC = "ernie.clark@wiltshire.gov.uk;howard.greenman@wiltshire.gov.uk;nick.baker@wiltshire.gov.uk;sam.blackwell@wiltshire.gov.uk;chris.brautigam@wiltshire.gov.uk;kymee.cleasby@wiltshire.gov.uk;nick.holder@wiltshire.gov.uk;dominic.munns@wiltshire.gov.uk;christopher.newbury@wiltshire.gov.uk;stewart.palmen@wiltshire.gov.uk;nigel.white@wiltshire.gov.uk;rsheridan@quatro-pr.co.uk;rparry@quatro-pr.co.uk";
+const SUBJECT = "I support Ashton Keynes Green Energy (PL/2023/03359)";
+
+let userDetails = {};
+
+function goToStep2() {
+  const first = document.getElementById("first-name").value.trim();
+  const last = document.getElementById("last-name").value.trim();
+  const address1 = document.getElementById("address1").value.trim();
+  const address2 = document.getElementById("address2").value.trim();
+  const town = document.getElementById("town").value.trim();
+  const postcode = document.getElementById("postcode").value.trim();
+
+  if (!first || !last) {
+    alert("Please enter your first and last name.");
+    return;
+  }
+  if (!address1 || !town || !postcode) {
+    alert("Please enter your address, town and postcode.");
+    return;
+  }
+
+  userDetails.name = [first, last].join(" ");
+  userDetails.address = [address1, address2, town, postcode].filter(Boolean).join(", ");
+
+  document.getElementById("step1").style.display = "none";
+  document.getElementById("step2").style.display = "block";
+  window.scrollTo(0, 0);
+}
+
+function sendLetter() {
+  const letter = document.getElementById("letter-input").value.trim();
+  if (!letter) {
+    alert("Please write your letter first.");
+    return;
+  }
+  const fullLetter = userDetails.address + "\n\n" + letter + "\n\n" + userDetails.name;
+  const mailto = "mailto:?bcc=" + encodeURIComponent(BCC) + "&subject=" + encodeURIComponent(SUBJECT) + "&body=" + encodeURIComponent(fullLetter);
+  window.location.href = mailto;
+}
+</script>
+</body>
+</html>
